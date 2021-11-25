@@ -1,5 +1,5 @@
 import PyPDF4 as pdf
-import taille_fichier_coupage as cpg 
+import cutt_file_parts as cpg 
 import argparse
 
 class PDFUtils:
