@@ -11,15 +11,15 @@ pip install -r requirements.txt
 ## Using
 Encrypt file pdf:
 ```sh
-python main.py --mode encrypt -f <file_to_encrypt> -p <password>
+python main.py --encrypt -f <file_to_encrypt> -p <password>
 ```
 
 decrypter pdf file
 ```sh
-python main.py --mode decrypt -p <password> -f <file_to_decrypt>
+python main.py --decrypt -p <password> -f <file_to_decrypt>
 ```
 
 brute force pdf
 ```sh
-python main.py --mode decrypt -w <wordlists> -f <file_to_brute_force>
+python main.py --decrypt -w <wordlists> -f <file_to_brute_force>
 ```
