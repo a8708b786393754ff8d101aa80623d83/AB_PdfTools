@@ -1,14 +1,15 @@
+#! /usr/bin/python3
 import cutt_file_parts as cpg
 from args import argument
-from pdf_utils import PDFUtils
+import pdf_utils 
 
 args = argument()
-pdf_utils = PDFUtils(args.file)
+pdf_utils.filename = args.file
 
-if args.mode == "encrypt":
+if args.encrypt:
     pdf_utils.encrypt(args.file, args.password)
 
-elif args.mode == "decrypt":
+elif args.decrypt:
     if args.password:
         pdf_utils.decrypt(args.password)
     else:
@@ -16,4 +17,4 @@ elif args.mode == "decrypt":
         result_calcul = cpg.calcul(len(content), length_cpg)
 
         for content in cpg.cutt(content, result_calcul):
-            cpg.thread_executor(content, pdf_utils.decrypt, 50)
+            cpg.thread_executor(pdf_utils.decrypt, content, 50)
