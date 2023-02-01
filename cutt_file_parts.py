@@ -11,6 +11,7 @@ def before_last_lenght_file_element(file_name: str):
         list : content file 
         int  : ast 2 digits of the file length 
     """
+
     elements = []
     try:
         with open(file_name, encoding="utf-8") as file_wordlists:
@@ -35,22 +36,23 @@ def calcul(length_content: int, operator: int):
     Returns:
         int : result calcul cutt parts 
     """
-    calcul = int
-    if length_content > 1_000_000:
-        calcul = length_content//operator//100
-        print(calcul)
 
-    elif length_content > 1_000_000:
+    calcul = int
+    if length_content > 1000000:# Million
+        calcul = length_content//10000
+
+    elif length_content > 100000: #cent mille
         calcul = length_content//operator//1.8
 
-    elif length_content > 10_000:
+    elif length_content > 10000: #dix mille
         calcul = length_content//operator//2
 
-    elif length_content > 1_000:
+    elif length_content > 1000:#mille
         calcul = length_content//operator//3
 
     if calcul == 0:
         return operator
+
     return int(calcul)
 
 
@@ -64,22 +66,21 @@ def cutt(_list: list, result_calcul: int):
     Yields:
         str : line on file 
     """
+
     start = result_calcul
     while(result_calcul < len(_list)):
-        if (result_calcul+start) > len(_list):
-            yield _list[result_calcul: len(_list)]
+        yield _list[result_calcul:result_calcul+start]
         result_calcul += start
-        yield _list[start:result_calcul]
 
 
-def thread_executor(element: list, funct, number_thread: int = 50):
+def thread_executor(funct, elements: list, number_thread: int):
     """
     Function that executes the thread
     Args:
-        element (list): line of file 
+        element (list): lines of file 
         funct ([type]): function for execute on thread
-        number_thread (int, optional): number of thread . Defaults to 50.
+        number_thread (int): number of thread.
     """
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=number_thread) as executor:
-        for content in element:
-            executor.submit(funct, content.strip())
+        executor.map(funct, elements)
